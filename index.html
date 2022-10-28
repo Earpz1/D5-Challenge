@@ -13,13 +13,34 @@
       <div class="container">
         <div class="input-form flex-column">
           <input type="text" id="team-member" placeholder="Enter Name" />
-
-          <button onclick="checkInput()">Add Team Member</button>
+          <div class="container-buttons flex">
+            <button onclick="checkInput()">Add Team Member</button>
+            <div class="control-team-size flex-column">
+              <div class="controls flex">
+                <a href="#" class="controlTeamMembers">
+                  <i
+                    class="fa-solid fa-plus"
+                    id="add"
+                    onclick="adjustTeams(event)"
+                  ></i>
+                </a>
+                <span id="teamMembersCounter">2</span>
+                <a href="#" class="controlTeamMembers">
+                  <i
+                    class="fa-solid fa-minus"
+                    id="minus"
+                    onclick="adjustTeams(event)"
+                  ></i>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="teams">
+
+        <h2>
           Team Members:
           <span id="numberOfNames"></span>
-        </p>
+        </h2>
         <ul class="name-list flex-column"></ul>
         <div class="flex generate-teams">
           <span id="warning">
@@ -31,7 +52,14 @@
           </button>
         </div>
       </div>
-      <div class="team-container flex"></div>
+      <div class="team-container flex">
+        <div class="team" id="1">
+          <h3>Team 1</h3>
+        </div>
+        <div class="team" id="2">
+          <h3>Team 2</h3>
+        </div>
+      </div>
     </div>
   </body>
   <script src="js/js.js"></script>

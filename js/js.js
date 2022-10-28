@@ -1,9 +1,11 @@
 //Global Variables
-
 let names = []
-let counter = 1
+let teamPositions = ['1', '1', '2', '2']
+let counter = 3
 let nameIndex = 0
-const numberOfNames = document.getElementById('numberOfNames')
+let Teamcounter = 2
+let numberOfNames = document.getElementById('numberOfNames')
+let teamsMade = false
 
 numberOfNames.innerText = names.length
 const addTeamMember = function () {
@@ -38,21 +40,17 @@ const generateTeams = function () {
 
   newTeam.classList.add('team')
   newTeam.classList.add('flex-column')
-  newTeamNumber.innerText = 'Team ' + counter
+  newTeam.setAttribute('id', Teamcounter)
+  newTeamNumber.innerText = 'Team ' + Teamcounter
   newTeam.appendChild(newTeamNumber)
 
-  let x = 0
-  while (x < 2) {
-    const newName = document.createElement('p')
-    const newIcon = document.createElement('i')
-    newName.classList.add('name')
-    newName.innerText = names[nameIndex]
-    nameIndex++
-    newTeam.appendChild(newName)
-    x++
-  }
   teamContainer.appendChild(newTeam)
   counter++
+}
+
+const removeTeams = function () {
+  const teamContainer = document.querySelector('.team-container')
+  teamContainer.removeChild(teamContainer.lastChild)
 }
 
 const checkInput = function () {
@@ -69,24 +67,35 @@ const checkInput = function () {
 }
 
 const checkTeams = function () {
-  if (names.length % 2 == 0) {
-    names.sort((a, b) => 0.5 - Math.random())
+  if (teamsMade === false) {
     assignTeams()
-  } else {
-    const warning = document.querySelector('#warning')
-    const button = document.querySelector('#generate-button')
-    warning.style.display = 'block'
-    button.innerText = 'Yes, make my teams unbalanced!'
-    button.setAttribute('onclick', 'assignTeams()')
+    teamsMade = true
   }
+  assignPlayerToTeam()
 }
 
 const assignTeams = function () {
-  let numberOfTeams = names.length / 2
-  for (let i = 0; i < numberOfTeams; i++) {
-    generateTeams()
+  if (Teamcounter > 2) {
+    for (let i = 0; i < Teamcounter; i++) {
+      teamPositions.push(i + 1)
+      teamPositions.push(i + 1)
+    }
   }
-  return numberOfTeams
+  teamPositions.sort((a, b) => 0.5 - Math.random())
+}
+
+const assignPlayerToTeam = function () {
+  let name = names[0]
+  let team = teamPositions[0].toString()
+  console.log(name)
+  console.log(team)
+
+  let teamContainer = document.getElementById(team)
+  let newName = document.createElement('p')
+  newName.innerText = name
+  teamContainer.appendChild(newName)
+  names.shift()
+  teamPositions.shift()
 }
 
 const removeTeamMember = function (event) {
@@ -95,4 +104,28 @@ const removeTeamMember = function (event) {
   const listItem = document.getElementById(name)
   names.splice(names.indexOf(name), 1)
   list.removeChild(listItem)
+  numberOfNames.innerText = names.length
+}
+
+const adjustTeams = function (event) {
+  let action = event.target.id
+  let counter = document.querySelector('#teamMembersCounter')
+
+  if (action === 'add') {
+    if (Teamcounter > names.length - 1) {
+      alert('You cannot have more teams than people')
+    } else {
+      Teamcounter += 1
+      counter.innerText = Teamcounter
+      generateTeams()
+    }
+  } else {
+    if (Teamcounter === 2) {
+      alert('You cannot have less than 2 teams')
+    } else {
+      Teamcounter -= 1
+      counter.innerText = Teamcounter
+      removeTeams()
+    }
+  }
 }
