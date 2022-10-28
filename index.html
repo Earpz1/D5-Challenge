@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Team Generator</title>
+  </head>
+  <body>
+    <div class="main-container flex">
+      <div class="container">
+        <div class="input-form flex-column">
+          <input type="text" id="team-member" placeholder="Enter Name" />
+
+          <button onclick="checkInput()">Add Team Member</button>
+        </div>
+        <p class="teams">
+          Team Members:
+          <span id="numberOfNames"></span>
+        </p>
+        <ul class="name-list flex-column"></ul>
+        <div class="flex generate-teams">
+          <span id="warning">
+            Warning: One or more of your teams will be uneven. Are you okay with
+            this?
+          </span>
+          <button onclick="checkTeams()" id="generate-button">
+            Generate Teams
+          </button>
+        </div>
+      </div>
+      <div class="team-container flex"></div>
+    </div>
+  </body>
+  <script src="js/js.js"></script>
+  <script
+    src="https://kit.fontawesome.com/e1177dc7ed.js"
+    crossorigin="anonymous"
+  ></script>
+</html>
